@@ -1,0 +1,186 @@
+[
+    {
+        "dataset": "LOL",
+        "originalImage": "LOL.665",
+        "inputImage": "1.png",
+        "enhancedImages": [
+            {
+                "model": "RetinexNet",
+                "name": "1_1.png"
+            },
+            {
+                "model": "Zero-DCE",
+                "name": "1_2.png"
+            },
+            {
+                "model": "EnlightenGAN",
+                "name": "1_3.png"
+            },
+            {
+                "model": "Fusion-DCE_denoised_poisson5-50",
+                "name": "1_4.png"
+            }
+        ]
+    },
+    {
+        "dataset": "LOL",
+        "originalImage": "LOL.778",
+        "inputImage": "2.png",
+        "enhancedImages": [
+            {
+                "model": "RetinexNet",
+                "name": "2_1.png"
+            },
+            {
+                "model": "Zero-DCE",
+                "name": "2_2.png"
+            },
+            {
+                "model": "EnlightenGAN",
+                "name": "2_3.png"
+            },
+            {
+                "model": "Fusion-DCE_denoised_poisson5-50",
+                "name": "2_4.png"
+            }
+        ]
+    },
+    {
+        "dataset": "LOL",
+        "originalImage": "LOL.780",
+        "inputImage": "3.png",
+        "enhancedImages": [
+            {
+                "model": "RetinexNet",
+                "name": "3_1.png"
+            },
+            {
+                "model": "Zero-DCE",
+                "name": "3_2.png"
+            },
+            {
+                "model": "EnlightenGAN",
+                "name": "3_3.png"
+            },
+            {
+                "model": "Fusion-DCE_denoised_poisson5-50",
+                "name": "3_4.png"
+            }
+        ]
+    },
+    {
+        "dataset": "LIME",
+        "originalImage": "LIME.9",
+        "inputImage": "4.png",
+        "enhancedImages": [
+            {
+                "model": "RetinexNet",
+                "name": "4_1.png"
+            },
+            {
+                "model": "Zero-DCE",
+                "name": "4_2.png"
+            },
+            {
+                "model": "EnlightenGAN",
+                "name": "4_3.png"
+            },
+            {
+                "model": "Fusion-DCE_denoised_poisson5-50",
+                "name": "4_4.png"
+            }
+        ]
+    },
+    {
+        "dataset": "MEF",
+        "originalImage": "MEF.Balloons",
+        "inputImage": "5.png",
+        "enhancedImages": [
+            {
+                "model": "RetinexNet",
+                "name": "5_1.png"
+            },
+            {
+                "model": "Zero-DCE",
+                "name": "5_2.png"
+            },
+            {
+                "model": "EnlightenGAN",
+                "name": "5_3.png"
+            },
+            {
+                "model": "Fusion-DCE_denoised_poisson5-50",
+                "name": "5_4.png"
+            }
+        ]
+    },
+    {
+        "dataset": "MEF",
+        "originalImage": "MEF.ChineseGarden",
+        "inputImage": "6.png",
+        "enhancedImages": [
+            {
+                "model": "RetinexNet",
+                "name": "6_1.png"
+            },
+            {
+                "model": "Zero-DCE",
+                "name": "6_2.png"
+            },
+            {
+                "model": "EnlightenGAN",
+                "name": "6_3.png"
+            },
+            {
+                "model": "Fusion-DCE_denoised_poisson5-50",
+                "name": "6_4.png"
+            }
+        ]
+    },
+    {
+        "dataset": "VV",
+        "originalImage": "VV.P1000333",
+        "inputImage": "7.png",
+        "enhancedImages": [
+            {
+                "model": "RetinexNet",
+                "name": "7_1.png"
+            },
+            {
+                "model": "Zero-DCE",
+                "name": "7_2.png"
+            },
+            {
+                "model": "EnlightenGAN",
+                "name": "7_3.png"
+            },
+            {
+                "model": "Fusion-DCE_denoised_poisson5-50",
+                "name": "7_4.png"
+            }
+        ]
+    },
+    {
+        "dataset": "VV",
+        "originalImage": "VV.P1010157",
+        "inputImage": "8.png",
+        "enhancedImages": [
+            {
+                "model": "RetinexNet",
+                "name": "8_1.png"
+            },
+            {
+                "model": "Zero-DCE",
+                "name": "8_2.png"
+            },
+            {
+                "model": "EnlightenGAN",
+                "name": "8_3.png"
+            },
+            {
+                "model": "Fusion-DCE_denoised_poisson5-50",
+                "name": "8_4.png"
+            }
+        ]
+    }
+]
