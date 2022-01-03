@@ -1,8 +1,32 @@
 .UsetStudyPage {
-  padding-bottom: 10px;
+  background: url('./logo.png');
+  background-size: 13%;
+  background-position: bottom 10px right 10px;
+  background-repeat: no-repeat;
+  .ending-screen {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .anticon {
+      font-size: 144px;
+      color: rgb(20, 201, 20);
+      margin-bottom: 15px;
+    }
+    p {
+      margin-bottom: 0;
+      font-size: 24px;
+      text-align: center;
+    }
+  }
   .header {
     width: 95%;
     margin: auto;
+  }
+  p {
+    text-align: center;
+    font-size: 18px;
   }
   .question-container {
     margin-top: 10px;
@@ -17,6 +41,7 @@
     }
     img {
       max-width: 512px;
+      width: 100%;
     }
     .enhanced-image-section {
       text-align: center;
@@ -24,6 +49,28 @@
         display: inline-block;
         margin: 5px;
       }
+    }
+    .ant-btn {
+      margin-bottom: 10px;
+    }
+  }
+  .submit-section {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    p {
+      margin-bottom: 0;
+      font-size: 24px;
+      text-align: center;
+      &:last-of-type {
+        margin-bottom: 30px;
+      }
+    }
+    .ant-input {
+      width: 300px;
+      margin-bottom: 15px;
     }
   }
 }
