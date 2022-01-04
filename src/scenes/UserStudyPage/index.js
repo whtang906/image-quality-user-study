@@ -8,6 +8,7 @@ import inputJSON from '../../input.json';
 import './style.less';
 
 const {
+  PUBLIC_URL,
   REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAL: GOOGLE_SERVICE_ACCOUNT_EMAIL,
   REACT_APP_GOOGLE_PRIVATE_KEY: GOOGLE_PRIVATE_KEY,
   REACT_APP_GOOGLE_DOC_ID: GOOGLE_DOC_ID,
@@ -76,14 +77,14 @@ const UserStudyPage = () => {
             {questions.length > 0 && currentQuestionIdx !== questions.length ? (
               <div className="question-container">
                 <div className="input-image-section">
-                  <img src={`/assets/${currentQuestion.inputImage}`} alt="" />
+                  <img src={`${PUBLIC_URL}/assets/${currentQuestion.inputImage}`} alt="" />
                   <p>Original Image</p>
                 </div>
                 <div className="enhanced-image-section">
                   {_.map(currentQuestion.enhancedImages, (enhancedImage, i) => {
                     return (
                       <div key={`${enhancedImage.name}-${i}`} className="enhanced-image">
-                        <img src={`/assets/${enhancedImage.name}`} alt="" />
+                        <img src={`${PUBLIC_URL}/assets/${enhancedImage.name}`} alt="" />
                         <p>Enhanced Image {i + 1}</p>
                         <Rate
                           allowHalf
