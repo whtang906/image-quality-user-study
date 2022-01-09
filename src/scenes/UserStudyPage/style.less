@@ -21,56 +21,76 @@
     }
   }
   .header {
-    width: 95%;
+    position: fixed;
+    left: 0;
+    right: 0;
     margin: auto;
-  }
-  p {
+    background: rgba(0, 0, 0, 0.75);
     text-align: center;
-    font-size: 18px;
-  }
-  .question-container {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    p {
-      text-align: center;
-      margin-bottom: 0;
-      margin-top: 5px;
-    }
-    img {
-      max-width: 512px;
-      width: 100%;
-    }
-    .enhanced-image-section {
-      text-align: center;
-      .enhanced-image {
-        display: inline-block;
-        margin: 5px;
+    padding: 4px 0px 5px 0px;
+    .ant-progress-line {
+      width: 95%;
+      .ant-progress-bg {
+        background-color: #43c0ea;
+      }
+      .ant-progress-text {
+        color: #43c0ea;
       }
     }
-    .ant-btn {
-      margin-bottom: 10px;
-    }
   }
-  .submit-section {
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  .survey-body {
+    padding-top: 35px;
     p {
-      margin-bottom: 0;
-      font-size: 24px;
       text-align: center;
-      &:last-of-type {
-        margin-bottom: 30px;
+      font-size: 18px;
+    }
+    .question-container {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      p {
+        text-align: center;
+        margin-bottom: 0;
+        margin-top: 5px;
+      }
+      img {
+        max-width: 512px;
+        width: 100%;
+      }
+      .enhanced-image-section {
+        text-align: center;
+        .enhanced-image {
+          display: inline-block;
+          margin: 5px;
+        }
+      }
+      .ant-select.error .ant-select-selector {
+        border-color: #ff4d4f;
+      }
+      .ant-btn {
+        margin: 10px 0px;
       }
     }
-    .ant-input {
-      width: 300px;
-      margin-bottom: 15px;
+    .submit-section {
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      p {
+        margin-bottom: 0;
+        font-size: 24px;
+        text-align: center;
+        &:last-of-type {
+          margin-bottom: 30px;
+        }
+      }
+      .ant-input {
+        width: 300px;
+        margin-bottom: 15px;
+      }
     }
   }
 }
