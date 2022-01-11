@@ -4,6 +4,7 @@ import { CheckCircleOutlined } from '@ant-design/icons';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import _ from 'lodash';
 import cx from 'classnames';
+import numeral from 'numeral';
 
 import inputJSON from '../../input.json';
 import './style.less';
@@ -11,12 +12,13 @@ import './style.less';
 const { Option } = Select;
 
 const {
-  PUBLIC_URL,
+  REACT_APP_B2_URL: B2_URL,
   REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAL: GOOGLE_SERVICE_ACCOUNT_EMAIL,
   REACT_APP_GOOGLE_PRIVATE_KEY: GOOGLE_PRIVATE_KEY,
   REACT_APP_GOOGLE_DOC_ID: GOOGLE_DOC_ID,
   REACT_APP_GOOGLE_SHEET_ID: GOOGLE_SHEET_ID,
 } = process.env;
+console.log(process.env)
 
 const UserStudyPage = () => {
   const [questions, setQuestions] = useState([]);
@@ -46,7 +48,7 @@ const UserStudyPage = () => {
           input_dataset: question.dataset,
           input_image: question.originalImage.split('.').pop(),
           enhanced_by: enhancedImage.model,
-          score: enhancedImage.score,
+          rank: enhancedImage.rank,
         }));
       })
     );
@@ -54,8 +56,33 @@ const UserStudyPage = () => {
     setIsCompleted(true);
   };
 
+  const generateRankOptionText = (rank, max) => {
+    switch (rank) {
+      case 1:
+        return `${rank} (Best)`;
+      case max:
+        return `${rank} (Worst)`;
+      default:
+        return rank;
+    }
+  };
+
   useEffect(() => {
-    setQuestions(_.shuffle(inputJSON));
+    const groupedInputJSON = _.groupBy(inputJSON, 'dataset');
+    const datasets = Object.keys(groupedInputJSON);
+    let questionBank = [];
+    _.map(_.range(20), (i) => {
+      while (true) {
+        const datasetIdx = _.random(datasets.length - 1);
+        const imageIdx = _.random(groupedInputJSON[datasets[datasetIdx]].length - 1);
+        const targetImage = groupedInputJSON[datasets[datasetIdx]][imageIdx];
+        if (!_.find(questionBank, targetImage)) {
+          questionBank.push(targetImage);
+          break;
+        }
+      }
+    });
+    setQuestions(questionBank);
   }, []);
 
   useEffect(() => {
@@ -71,34 +98,38 @@ const UserStudyPage = () => {
         {isCompleted ? (
           <div className="ending-screen">
             <CheckCircleOutlined />
-            <p>The survey is finished.</p>
+            <p>This survey is finished.</p>
             <p>Thank you for your help!</p>
           </div>
         ) : (
           <div className="survey">
             <div className="header">
-              <Progress percent={currentProgress * 100} />
+              <Progress percent={numeral(currentProgress * 100).format('0[.]00')} />
             </div>
             <div className="survey-body">
-              <p>
-                Please rank the following images' enhancement quailty. (1: Best,{' '}
-                {currentQuestion.enhancedImages ? currentQuestion.enhancedImages.length : 0}: Worst,{' '}
-                <b>duplicate rank is NOT allowed</b>)
-              </p>
               {questions.length > 0 && currentQuestionIdx !== questions.length ? (
                 <div className="question-container">
+                  <p className="introduction">
+                    Please rank the following images' enhancement quailty based on your first impression. <br />
+                    (1: Best, {currentQuestion.enhancedImages ? currentQuestion.enhancedImages.length : 0}: Worst,{' '}
+                    <b>duplicate rank is NOT allowed</b>)
+                  </p>
                   <div className="input-image-section">
-                    <img src={`${PUBLIC_URL}/assets/${currentQuestion.inputImage}`} alt="" />
-                    <p>Original Image</p>
+                    <img src={`${B2_URL}/${currentQuestion.inputImage}`} alt="" />
+                    <p>
+                      <b>Original Image</b>
+                    </p>
                   </div>
                   <div className="enhanced-image-section">
-                    {_.map(currentQuestion.enhancedImages, (enhancedImage, i) => {
+                    {_.map(_.shuffle(currentQuestion.enhancedImages), (enhancedImage, i) => {
                       return (
                         <div key={`${enhancedImage.name}-${i}`} className="enhanced-image">
-                          <img src={`${PUBLIC_URL}/assets/${enhancedImage.name}`} alt="" />
+                          <img src={`${B2_URL}/${enhancedImage.name}`} alt="" />
                           <p>Enhanced Image {i + 1}</p>
                           <Select
-                            className={cx({ error: enhancedImage.rank && _.countBy(usedRanks)[enhancedImage.rank] > 1 })}
+                            className={cx({
+                              error: enhancedImage.rank && _.countBy(usedRanks)[enhancedImage.rank] > 1,
+                            })}
                             placeholder="Rank this photo"
                             value={enhancedImage.rank}
                             onChange={(value) => {
@@ -107,10 +138,11 @@ const UserStudyPage = () => {
                               setQuestions(newQuestions);
                             }}
                             allowClear
+                            dropdownMatchSelectWidth={false}
                           >
                             {_.map(_.range(1, currentQuestion.enhancedImages.length + 1), (rank) => (
                               <Option key={rank} value={rank}>
-                                {rank}
+                                {generateRankOptionText(rank, currentQuestion.enhancedImages.length)}
                               </Option>
                             ))}
                           </Select>
