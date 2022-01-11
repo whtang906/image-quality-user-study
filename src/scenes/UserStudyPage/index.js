@@ -4,6 +4,7 @@ import { CheckCircleOutlined } from '@ant-design/icons';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import _ from 'lodash';
 import cx from 'classnames';
+import moment from 'moment';
 import numeral from 'numeral';
 
 import inputJSON from '../../input.json';
@@ -18,7 +19,6 @@ const {
   REACT_APP_GOOGLE_DOC_ID: GOOGLE_DOC_ID,
   REACT_APP_GOOGLE_SHEET_ID: GOOGLE_SHEET_ID,
 } = process.env;
-console.log(process.env)
 
 const UserStudyPage = () => {
   const [questions, setQuestions] = useState([]);
@@ -49,6 +49,7 @@ const UserStudyPage = () => {
           input_image: question.originalImage.split('.').pop(),
           enhanced_by: enhancedImage.model,
           rank: enhancedImage.rank,
+          created_at: moment().toISOString(),
         }));
       })
     );
@@ -76,8 +77,9 @@ const UserStudyPage = () => {
         const datasetIdx = _.random(datasets.length - 1);
         const imageIdx = _.random(groupedInputJSON[datasets[datasetIdx]].length - 1);
         const targetImage = groupedInputJSON[datasets[datasetIdx]][imageIdx];
-        if (!_.find(questionBank, targetImage)) {
-          questionBank.push(targetImage);
+        if (!_.find(questionBank, { originalImage: targetImage.originalImage })) {
+          const shuffledTargetImage = { ...targetImage, enhancedImages: _.shuffle(targetImage.enhancedImages) };
+          questionBank.push(shuffledTargetImage);
           break;
         }
       }
@@ -115,13 +117,13 @@ const UserStudyPage = () => {
                     <b>duplicate rank is NOT allowed</b>)
                   </p>
                   <div className="input-image-section">
-                    <img src={`${B2_URL}/${currentQuestion.inputImage}`} alt="" />
+                    <img key={currentQuestion.originalImage} src={`${B2_URL}/${currentQuestion.inputImage}`} alt="" />
                     <p>
                       <b>Original Image</b>
                     </p>
                   </div>
                   <div className="enhanced-image-section">
-                    {_.map(_.shuffle(currentQuestion.enhancedImages), (enhancedImage, i) => {
+                    {_.map(currentQuestion.enhancedImages, (enhancedImage, i) => {
                       return (
                         <div key={`${enhancedImage.name}-${i}`} className="enhanced-image">
                           <img src={`${B2_URL}/${enhancedImage.name}`} alt="" />
